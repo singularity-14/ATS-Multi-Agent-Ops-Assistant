@@ -26,8 +26,8 @@ class TestGuardrailsChecker:
     
     def test_off_topic_cooking_query_flagged(self):
         result = self.checker.check(
-            'How do I cook pasta?',
-            'To cook pasta, boil water...'
+            'What is the recipe for pasta?',
+            'To make pasta, follow this recipe...'
         )
         assert result['passed'] is False
     

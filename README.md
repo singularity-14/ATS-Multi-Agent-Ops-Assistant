@@ -294,7 +294,7 @@ python scripts/run_evaluation.py
 python scripts/run_evaluation.py --subset 5
 ```
 
-The script exits with code `1` if domain accuracy falls below 70%. Reports are saved to `data/eval_reports/`.
+The script exits with code `1` if domain accuracy falls below 70%. Detailed JSON evaluation reports are automatically saved to `data/eval_reports/` for your review.
 
 > Requires a valid `NVIDIA_API_KEY` in `.env` — this makes real LLM calls.
 

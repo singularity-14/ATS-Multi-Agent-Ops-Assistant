@@ -61,12 +61,8 @@ class TestEscalationServer:
     def setup_method(self):
         import tempfile
         from pathlib import Path
-        from unittest.mock import patch
         self.tmp_db = tempfile.NamedTemporaryFile(suffix='.db', delete=False)
-        with patch('src.mcp_servers.mcp_server_escalation.DB_PATH', Path(self.tmp_db.name)):
-            self.server = EscalationServer.__new__(EscalationServer)
-            self.server.db_path = Path(self.tmp_db.name)
-            self.server._init_db()
+        self.server = EscalationServer(db_path=Path(self.tmp_db.name))
     
     def test_escalate_to_human(self):
         result = self.server.escalate_to_human(

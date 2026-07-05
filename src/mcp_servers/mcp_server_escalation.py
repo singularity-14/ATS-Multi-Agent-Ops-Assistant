@@ -12,7 +12,7 @@ from typing import Any, Optional
 
 logger = logging.getLogger(__name__)
 
-DB_PATH = Path('data/escalations.db')
+DEFAULT_DB_PATH = Path('data/escalations.db')
 
 # ---------------------------------------------------------------------------
 # On-call engineer roster (simulated; production would pull from PagerDuty/CERN HSS)
@@ -68,10 +68,11 @@ class EscalationServer:
 
     name = 'escalation'
 
-    def __init__(self):
-        DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+    def __init__(self, db_path: Optional[Path] = None):
+        self.db_path = db_path or DEFAULT_DB_PATH
+        self.db_path.parent.mkdir(parents=True, exist_ok=True)
         self._init_db()
-        logger.info('EscalationServer initialized. Database: %s', DB_PATH)
+        logger.info('EscalationServer initialized. Database: %s', self.db_path)
 
     # ------------------------------------------------------------------
     # DB setup
@@ -79,7 +80,7 @@ class EscalationServer:
 
     def _init_db(self) -> None:
         """Create the escalations table if it does not already exist."""
-        with sqlite3.connect(DB_PATH) as conn:
+        with sqlite3.connect(self.db_path) as conn:
             conn.execute('''
                 CREATE TABLE IF NOT EXISTS escalations (
                     id              TEXT PRIMARY KEY,
@@ -145,7 +146,7 @@ class EscalationServer:
             context[:1000] + '… [truncated]' if len(context) > 1000 else context
         )
 
-        with sqlite3.connect(DB_PATH) as conn:
+        with sqlite3.connect(self.db_path) as conn:
             conn.execute(
                 '''INSERT INTO escalations
                    (id, reason, context, priority, engineer_name, engineer_role,
@@ -204,7 +205,7 @@ class EscalationServer:
             JSON string with count and list of escalation records.
         """
         limit = max(1, min(limit, 100))
-        with sqlite3.connect(DB_PATH) as conn:
+        with sqlite3.connect(self.db_path) as conn:
             conn.row_factory = sqlite3.Row
             rows = conn.execute(
                 'SELECT * FROM escalations ORDER BY created_at DESC LIMIT ?',
@@ -291,7 +292,7 @@ class EscalationServer:
         if severity == 'CRITICAL':
             next_steps.insert(0, '⚠️  CRITICAL: Alert LHC Run Coordinator immediately.')
 
-        with sqlite3.connect(DB_PATH) as conn:
+        with sqlite3.connect(self.db_path) as conn:
             conn.execute(
                 '''INSERT INTO incident_reports
                    (report_id, title, description, severity, affected_systems,
