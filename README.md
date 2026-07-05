@@ -2,8 +2,6 @@
 
 **Multi-agent AI system for CERN accelerator operations** — built with LangGraph, MCP, FastAPI, Streamlit, and NVIDIA NIM LLMs. Implements safe agent deployment patterns including guardrails, faithfulness checking, audit logging, and automated evaluation.
 
-> Directly mirrors the CERN ATS AI Core Team mission: *reusable patterns, evaluation frameworks, and safe agent deployment practices across the accelerator sector.*
-
 [![CI](https://github.com/singularity-14/ATS-Multi-Agent-Ops-Assistant/actions/workflows/ci.yml/badge.svg)](https://github.com/singularity-14/ATS-Multi-Agent-Ops-Assistant/actions/workflows/ci.yml)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![LangGraph](https://img.shields.io/badge/LangGraph-0.5.1-green.svg)](https://github.com/langchain-ai/langgraph)
