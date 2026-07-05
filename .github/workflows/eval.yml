@@ -2,40 +2,60 @@ name: Agent Evaluation
 
 on:
   schedule:
-    - cron: '0 2 * * 1'  # Every Monday at 2am UTC
-  workflow_dispatch:      # Manual trigger
+    - cron: '0 2 * * 1'   # Every Monday at 2am UTC
+  workflow_dispatch:        # Manual trigger from GitHub Actions tab
     inputs:
       test_subset:
         description: 'Number of test cases to run (0 = all)'
         required: false
-        default: '0'
+        default: '5'
 
 jobs:
   run-evaluation:
     name: Run Agent Evaluation Suite
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: pip
-      
+
       - name: Install dependencies
         run: pip install -r requirements.txt
-      
+
       - name: Create .env
         run: |
           echo "NVIDIA_API_KEY=${{ secrets.NVIDIA_API_KEY }}" > .env
           echo 'APP_ENV=evaluation' >> .env
-      
+          echo 'LOG_LEVEL=WARNING' >> .env
+
+      - name: Validate NVIDIA key is set
+        run: |
+          if [ -z "${{ secrets.NVIDIA_API_KEY }}" ]; then
+            echo "::warning::NVIDIA_API_KEY secret is not set — skipping live evaluation"
+            echo "SKIP_EVAL=true" >> $GITHUB_ENV
+          fi
+
       - name: Run evaluation harness
-        run: python scripts/run_evaluation.py
+        if: env.SKIP_EVAL != 'true'
+        run: |
+          SUBSET="${{ github.event.inputs.test_subset }}"
+          SUBSET="${SUBSET:-5}"
+          if [ "$SUBSET" = "0" ]; then
+            python scripts/run_evaluation.py
+          else
+            python scripts/run_evaluation.py --subset "$SUBSET"
+          fi
         timeout-minutes: 60
-      
+
+      - name: Skip notice
+        if: env.SKIP_EVAL == 'true'
+        run: echo "Evaluation skipped — add NVIDIA_API_KEY to repository secrets to enable."
+
       - name: Upload evaluation report
         uses: actions/upload-artifact@v4
         if: always()

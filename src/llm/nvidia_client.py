@@ -1,4 +1,4 @@
-﻿"""
+"""
 NVIDIA NIM LLM Client for ATS Multi-Agent Ops Assistant.
 
 Wraps the NVIDIA NIM chat-completions REST API with retry logic,
@@ -18,6 +18,15 @@ from urllib3.util.retry import Retry
 from src.config import get_settings
 
 logger = logging.getLogger(__name__)
+
+# Models that support the `reasoning_effort` parameter.
+# Standard chat/instruct models will return 400 if this field is included.
+_REASONING_MODELS: frozenset[str] = frozenset({
+    "nvidia/llama-3.1-nemotron-ultra-253b-v1",
+    "nvidia/llama-3.3-nemotron-super-49b-v1",
+    "nvidia/llama-3.1-nemotron-nano-8b-v1",
+    "nvidia/nemotron-4-340b-instruct",
+})
 
 
 # ---------------------------------------------------------------------------
@@ -99,13 +108,16 @@ class NvidiaLLMClient:
         """
         payload: dict[str, Any] = {
             "model": self.settings.nvidia_model,
-            "reasoning_effort": reasoning_effort,
             "messages": messages,
             "max_tokens": max_tokens if max_tokens is not None else self.settings.max_tokens,
             "temperature": temperature if temperature is not None else self.settings.temperature,
             "top_p": top_p,
             "stream": stream,
         }
+        # Only reasoning models accept the `reasoning_effort` field.
+        # Sending it to standard models causes a 400 Bad Request.
+        if self.settings.nvidia_model in _REASONING_MODELS:
+            payload["reasoning_effort"] = reasoning_effort
 
         logger.debug(
             "NVIDIA NIM request | model=%s | messages=%d | max_tokens=%d",
@@ -199,7 +211,6 @@ class NvidiaLLMClient:
                 prompt="Reply with exactly one word: OK",
                 system="You are a health-check endpoint. Reply with exactly one word: OK.",
                 max_tokens=5,
-                reasoning_effort="none",
             )
             logger.info("NVIDIA NIM health check: PASSED")
             return True
