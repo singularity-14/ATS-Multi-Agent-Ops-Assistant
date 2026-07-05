@@ -1,0 +1,78 @@
+[project]
+name = "ats-agentic-ops-assistant"
+version = "1.0.0"
+description = "Multi-agent AI system for accelerator operations — intelligent diagnostics, documentation retrieval, and operational decision support."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+authors = [
+    { name = "ATS Operations Team" }
+]
+keywords = ["accelerator", "operations", "multi-agent", "langgraph", "AI"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+
+[project.urls]
+Repository = "https://github.com/your-org/ats-agentic-ops-assistant"
+
+[project.scripts]
+ats-ops = "src.cli:app"
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
+# ── Black ─────────────────────────────────────────────────────────────────────
+[tool.black]
+line-length = 100
+target-version = ["py311", "py312"]
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  | dist
+  | build
+  | venv
+  | .venv
+)/
+'''
+
+# ── Ruff ──────────────────────────────────────────────────────────────────────
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+ignore = [
+    "E501",  # line-length handled by black
+    "N999",  # module naming
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["src"]
+
+# ── Mypy ──────────────────────────────────────────────────────────────────────
+[tool.mypy]
+python_version = "3.11"
+strict = false
+ignore_missing_imports = true
+warn_return_any = false
+warn_unused_configs = true
+exclude = ["venv/", ".venv/", "dist/", "build/"]
+
+# ── Pytest ────────────────────────────────────────────────────────────────────
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+addopts = "--cov=src --cov-report=term-missing"
+log_cli = true
+log_cli_level = "INFO"

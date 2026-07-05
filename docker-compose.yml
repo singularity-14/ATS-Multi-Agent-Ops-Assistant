@@ -1,0 +1,40 @@
+version: '3.9'
+
+services:
+  api:
+    build: .
+    container_name: ats-api
+    ports:
+      - '8000:8000'
+    environment:
+      - NVIDIA_API_KEY=${NVIDIA_API_KEY}
+      - APP_ENV=production
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./data:/app/data
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:8000/health']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+  
+  ui:
+    build: .
+    container_name: ats-ui
+    command: streamlit run src/ui/app.py --server.port=8501 --server.address=0.0.0.0
+    ports:
+      - '8501:8501'
+    environment:
+      - NVIDIA_API_KEY=${NVIDIA_API_KEY}
+      - APP_ENV=production
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  app-data:
+    driver: local

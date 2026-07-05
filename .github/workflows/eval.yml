@@ -1,0 +1,45 @@
+name: Agent Evaluation
+
+on:
+  schedule:
+    - cron: '0 2 * * 1'  # Every Monday at 2am UTC
+  workflow_dispatch:      # Manual trigger
+    inputs:
+      test_subset:
+        description: 'Number of test cases to run (0 = all)'
+        required: false
+        default: '0'
+
+jobs:
+  run-evaluation:
+    name: Run Agent Evaluation Suite
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      
+      - name: Create .env
+        run: |
+          echo "NVIDIA_API_KEY=${{ secrets.NVIDIA_API_KEY }}" > .env
+          echo 'APP_ENV=evaluation' >> .env
+      
+      - name: Run evaluation harness
+        run: python scripts/run_evaluation.py
+        timeout-minutes: 60
+      
+      - name: Upload evaluation report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eval-report-${{ github.run_id }}
+          path: data/eval_reports/
+          retention-days: 30

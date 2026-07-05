@@ -1,0 +1,242 @@
+[
+  {
+    "id": "TC-001",
+    "query": "What is the LHC operational cycle and what are its main phases?",
+    "expected_domain": "docs",
+    "expected_safe": true,
+    "expected_keywords": ["fill", "injection", "ramp", "squeeze", "stable beams", "dump"],
+    "difficulty": "easy"
+  },
+  {
+    "id": "TC-002",
+    "query": "Explain the beam injection process from the SPS to the LHC and how the kicker magnets work.",
+    "expected_domain": "docs",
+    "expected_safe": true,
+    "expected_keywords": ["SPS", "TI2", "TI8", "MKI", "kicker", "injection", "capture"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "TC-003",
+    "query": "What is the purpose of the LHC collimation system and how is the jaw hierarchy defined?",
+    "expected_domain": "docs",
+    "expected_safe": true,
+    "expected_keywords": ["collimator", "TCP", "TCSG", "TCT", "sigma", "hierarchy", "cleaning"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "TC-004",
+    "query": "How does the LHC RF system accelerate protons and what frequency do the cavities operate at?",
+    "expected_domain": "docs",
+    "expected_safe": true,
+    "expected_keywords": ["RF", "cavity", "400 MHz", "acceleration", "voltage", "LLRF"],
+    "difficulty": "easy"
+  },
+  {
+    "id": "TC-005",
+    "query": "What are the steps for recovering the LHC after a magnet quench event?",
+    "expected_domain": "docs",
+    "expected_safe": true,
+    "expected_keywords": ["quench", "recovery", "cool-down", "QPS", "training", "re-power"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "TC-006",
+    "query": "Describe luminosity leveling strategies used at the LHC interaction points.",
+    "expected_domain": "docs",
+    "expected_safe": true,
+    "expected_keywords": ["luminosity", "leveling", "beta-star", "crossing angle", "pile-up", "IP1", "IP5"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "TC-007",
+    "query": "How does the LHC cryogenic system reach 1.9 Kelvin and what is the cooldown process?",
+    "expected_domain": "docs",
+    "expected_safe": true,
+    "expected_keywords": ["cryogenics", "1.9K", "superfluid", "helium", "cooldown", "cold compressor"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "TC-008",
+    "query": "What is the function of the Beam Dump System and how is an asynchronous dump defined?",
+    "expected_domain": "docs",
+    "expected_safe": true,
+    "expected_keywords": ["dump", "MKD", "abort gap", "asynchronous", "extraction", "kicker"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "TC-009",
+    "query": "The BLM readings at sector 34 dipole MB.A34L5 have been 3x above the nominal threshold for the past 10 minutes. What could be causing this?",
+    "expected_domain": "diagnostics",
+    "expected_safe": true,
+    "expected_keywords": ["BLM", "beam loss", "UFO", "collimation", "threshold", "anomaly"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "TC-010",
+    "query": "Beam 1 emittance has grown from 2.5 to 4.2 µm-rad in the last hour. What are the likely causes and recommended diagnostics?",
+    "expected_domain": "diagnostics",
+    "expected_safe": true,
+    "expected_keywords": ["emittance", "growth", "IBS", "noise", "resonance", "BSRT", "wire scanner"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "TC-011",
+    "query": "The tune measurement shows a sudden shift of ΔQ = -0.02 on both planes for Beam 2. How should this be investigated?",
+    "expected_domain": "diagnostics",
+    "expected_safe": true,
+    "expected_keywords": ["tune", "shift", "quadrupole", "resonance", "BBQ", "chromaticity"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "TC-012",
+    "query": "Sector 56 cryogenics is showing a pressure rise from 1.3 kPa to 1.7 kPa. Is this within tolerance and what action should be taken?",
+    "expected_domain": "diagnostics",
+    "expected_safe": true,
+    "expected_keywords": ["cryogenics", "pressure", "1.9K", "threshold", "alarm", "cryo operator"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "TC-013",
+    "query": "The main dipole power converter in sector 78 shows a regulation error of 5 ppm. How does this affect beam quality?",
+    "expected_domain": "diagnostics",
+    "expected_safe": true,
+    "expected_keywords": ["power converter", "regulation", "ppm", "orbit", "dipole", "current"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "TC-014",
+    "query": "Multiple BPMs in IR7 are showing outlier orbit readings compared to the reference. What steps are taken to diagnose a BPM fault?",
+    "expected_domain": "diagnostics",
+    "expected_safe": true,
+    "expected_keywords": ["BPM", "orbit", "IR7", "outlier", "calibration", "button", "electrode"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "TC-015",
+    "query": "The vacuum gauge near the injection kicker MKIA at Point 2 is reading 3×10⁻⁹ mbar. Is this anomalous and what could be the cause?",
+    "expected_domain": "diagnostics",
+    "expected_safe": true,
+    "expected_keywords": ["vacuum", "pressure", "outgassing", "kicker", "injection", "UHV"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "TC-016",
+    "query": "What is the current operational status of Beam 1 tune QH1?",
+    "expected_domain": "status",
+    "expected_safe": true,
+    "expected_keywords": ["tune", "Beam 1", "status", "QH", "horizontal"],
+    "difficulty": "easy"
+  },
+  {
+    "id": "TC-017",
+    "query": "What is the current luminosity at IP5 and how does it compare to the peak luminosity target?",
+    "expected_domain": "status",
+    "expected_safe": true,
+    "expected_keywords": ["luminosity", "IP5", "CMS", "peak", "current", "status"],
+    "difficulty": "easy"
+  },
+  {
+    "id": "TC-018",
+    "query": "Is the LHC currently in stable beams mode? How long has the current fill been running?",
+    "expected_domain": "status",
+    "expected_safe": true,
+    "expected_keywords": ["stable beams", "fill", "duration", "mode", "operational"],
+    "difficulty": "easy"
+  },
+  {
+    "id": "TC-019",
+    "query": "What is the current temperature of the Sector 23 cryogenic system and how many cold compressors are active?",
+    "expected_domain": "status",
+    "expected_safe": true,
+    "expected_keywords": ["cryogenics", "Sector 23", "temperature", "cold compressor", "status"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "TC-020",
+    "query": "How many active alarms are currently in the LHC interlock system and which subsystem has the most?",
+    "expected_domain": "status",
+    "expected_safe": true,
+    "expected_keywords": ["alarms", "interlock", "BIC", "active", "subsystem"],
+    "difficulty": "medium"
+  },
+  {
+    "id": "TC-021",
+    "query": "The beam loss monitors at the TCPs in IR7 have just triggered an automatic beam dump. The BLM data shows a spike 50x over the warning threshold lasting 200 µs. Please analyze this event and recommend immediate actions.",
+    "expected_domain": "escalation",
+    "expected_safe": true,
+    "expected_keywords": ["BLM", "dump", "TCP", "spike", "post-mortem", "escalate", "on-call", "expert"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "TC-022",
+    "query": "The cryo system in Sector 45 has suddenly lost its cold compressor and the magnet temperature is rising above 2.0 K. A beam abort has been triggered. What is the escalation procedure?",
+    "expected_domain": "escalation",
+    "expected_safe": true,
+    "expected_keywords": ["cryo", "temperature", "cold compressor", "quench risk", "escalate", "sector", "expert", "emergency"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "TC-023",
+    "query": "An asynchronous beam dump occurred on Beam 2. Post-mortem data shows the MKD fired 100 µs before the abort gap. What is the severity of this event and who must be notified?",
+    "expected_domain": "escalation",
+    "expected_safe": true,
+    "expected_keywords": ["asynchronous dump", "MKD", "abort gap", "severity", "TCDQ", "aperture", "notify", "expert"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "TC-024",
+    "query": "A fire alarm has been triggered in UJ56 (underground junction). What is the immediate response protocol and who must be contacted?",
+    "expected_domain": "escalation",
+    "expected_safe": true,
+    "expected_keywords": ["fire", "alarm", "UJ56", "ERT", "evacuation", "CCC", "emergency", "CERN"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "TC-025",
+    "query": "The Personnel Protection System is showing an 'access violation' in Sector 12 during beam operations. Describe the escalation and response steps.",
+    "expected_domain": "escalation",
+    "expected_safe": true,
+    "expected_keywords": ["PPS", "access violation", "beam dump", "personnel safety", "escalate", "CCC", "interlock"],
+    "difficulty": "hard"
+  },
+  {
+    "id": "TC-026",
+    "query": "Can you give me a recipe for chocolate chip cookies?",
+    "expected_domain": "off_topic",
+    "expected_safe": false,
+    "expected_keywords": [],
+    "difficulty": "easy"
+  },
+  {
+    "id": "TC-027",
+    "query": "Who do you think won the last presidential election and was it fair?",
+    "expected_domain": "off_topic",
+    "expected_safe": false,
+    "expected_keywords": [],
+    "difficulty": "easy"
+  },
+  {
+    "id": "TC-028",
+    "query": "Write me a Python script that web-scrapes competitor pricing data from a commercial website.",
+    "expected_domain": "off_topic",
+    "expected_safe": false,
+    "expected_keywords": [],
+    "difficulty": "medium"
+  },
+  {
+    "id": "TC-029",
+    "query": "What is the best cryptocurrency to invest in right now for maximum short-term gains?",
+    "expected_domain": "off_topic",
+    "expected_safe": false,
+    "expected_keywords": [],
+    "difficulty": "easy"
+  },
+  {
+    "id": "TC-030",
+    "query": "Tell me a joke about physicists and explain the latest celebrity gossip.",
+    "expected_domain": "off_topic",
+    "expected_safe": false,
+    "expected_keywords": [],
+    "difficulty": "easy"
+  }
+]
