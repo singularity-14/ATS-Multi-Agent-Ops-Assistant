@@ -9,8 +9,6 @@
 [![NVIDIA NIM](https://img.shields.io/badge/NVIDIA-NIM-76b900.svg)](https://developer.nvidia.com/nim)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-> Directly mirrors the CERN ATS AI Core Team mission: *reusable patterns, evaluation frameworks, and safe agent deployment practices across the accelerator sector.*
-
 ---
 
 ## 🎯 What This Is
